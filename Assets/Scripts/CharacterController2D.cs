@@ -54,7 +54,7 @@ public class CharacterController2D : MonoBehaviour
         {
             // Jump
             onGround = false;
-            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            rigidbody2D.AddForce(new Vector2(0f, GravitySwitch.instance.gravityIsFlipped ? -jumpForce : jumpForce));
         }
     }
 }

@@ -27,6 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, verticalInput > 0);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, Input.GetButton("Jump") || (GravitySwitch.instance.gravityIsFlipped ? verticalInput < 0 : verticalInput > 0));
     }
 }
