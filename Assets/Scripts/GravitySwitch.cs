@@ -2,12 +2,14 @@
 // Copyright (c) SunnyMonster
 //
 
+using TMPro;
 using UnityEngine;
 
 public class GravitySwitch : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private new Rigidbody2D rigidbody;
+    [SerializeField] private TextMeshProUGUI gravityStateLabel;
 
     public static GravitySwitch instance { get; private set; }
 
@@ -26,27 +28,41 @@ public class GravitySwitch : MonoBehaviour
             instance = this;
         }
 
-        buttonStyle = new GUIStyle("button")
-        {
-            fontSize = 25
-        };
-        labelStyle = new GUIStyle("label")
-        {
-            fontSize = 20,
-            alignment = TextAnchor.MiddleCenter
-        };
+        UpdateLabel();
+
+    //    buttonStyle = new GUIStyle("Button")
+    //    {
+    //        fontSize = 25
+    //    };
+    //    labelStyle = new GUIStyle("Label")
+    //    {
+    //        fontSize = 20, 
+    //        alignment = TextAnchor.MiddleCenter
+    //    };
     }
 
-    private void OnGUI()
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(10, 10, 180, 80), "Flip Gravity", buttonStyle))
+    //    {
+    //        gravityIsFlipped = !gravityIsFlipped;
+    //        Switch(gravityIsFlipped);
+    //    }
+    //    var labelContent = new GUIContent("Current Gravity: " + (gravityIsFlipped ? "Flipped" : "Normal"));
+    //    var labelSize = labelStyle.CalcSize(labelContent);
+    //    GUI.Label(new Rect(200, 10, labelSize.x, 80), labelContent, labelStyle);
+    //}
+
+    public void FlipGravityButton()
     {
-        if (GUI.Button(new Rect(10, 10, 180, 80), "Flip Gravity", buttonStyle))
-        {
-            gravityIsFlipped = !gravityIsFlipped;
-            Switch(gravityIsFlipped);
-        }
-        var labelContent = new GUIContent("Current Gravity: " + (gravityIsFlipped ? "Flipped" : "Normal"));
-        var labelSize = labelStyle.CalcSize(labelContent);
-        GUI.Label(new Rect(200, 10, labelSize.x, 80), labelContent, labelStyle);
+        gravityIsFlipped = !gravityIsFlipped;
+        Switch(gravityIsFlipped);
+        UpdateLabel();
+    }
+
+    private void UpdateLabel()
+    {
+        gravityStateLabel.text = "Current Gravity: " + (gravityIsFlipped ? "Flipped" : "Normal");
     }
 
     public void Switch(bool gravityIsFlipped)
